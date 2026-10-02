@@ -17,7 +17,8 @@
 //   event <run-id> "<text>"                  append a history event
 //   next <run-id>                            print the next runnable group (JSON)
 //   status <run-id>                          print a human-readable summary
-//   draft-hash <run-id>                      hash the draft, mark approval pending, print the APPROVE/REJECT phrases
+//   hooks-check <run-id>                     verify the PostToolUse hook logged input/hook-check.md (hooks are live)
+//   draft-hash <run-id>                     hash the draft, mark approval pending, print the APPROVE/REJECT phrases
 //   list                                     list runs and their status
 import fs from "node:fs";
 import path from "node:path";
@@ -188,6 +189,20 @@ switch (cmd) {
   }
   case "status": {
     console.log(summary(loadState(runId)));
+    break;
+  }
+  case "hooks-check": {
+    // Proves the project hooks are live in this session: the coordinator has just written input/hook-check.md
+    // with the Write tool, so the PostToolUse hook must have logged it within the last two minutes.
+    const state = loadState(runId);
+    const recent = state.history.filter((h) => h.event === "file-written" && h.detail.startsWith("input/hook-check.md")
+      && Date.now() - Date.parse(h.ts) < 120_000);
+    if (!recent.length) {
+      console.error("HOOKS NOT ACTIVE: the PostToolUse hook did not record input/hook-check.md. Approval and output guards " +
+        "are therefore not enforced. Start a NEW Claude Code session with the repository root as its working folder, then resume.");
+      process.exit(1);
+    }
+    console.log("hooks active");
     break;
   }
   case "draft-hash": {

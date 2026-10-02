@@ -29,6 +29,12 @@ try {
   expect("plan skips conditional step", readState().steps.nutrition.status === "skipped");
   expect("plan refuses to skip mandatory step", state("plan", RUN, "--skip", "program").status !== 0);
 
+  // preflight: hooks-check fails until the PostToolUse hook has logged input/hook-check.md
+  expect("hooks-check fails without hook evidence", state("hooks-check", RUN).status !== 0);
+  fs.writeFileSync(file("input/hook-check.md"), "hook self-check\n");
+  hook("post-write-state", write(undefined, "input/hook-check.md"));
+  expect("hooks-check passes after PostToolUse logged the file", state("hooks-check", RUN).status === 0);
+
   // post-write-state
   fs.writeFileSync(file("artifacts/02-exercise-library.md"), "# x\n");
   hook("post-write-state", { ...write("exercise-researcher", "artifacts/02-exercise-library.md"), tool_name: "Write" });

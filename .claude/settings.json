@@ -29,13 +29,13 @@
       {
         "matcher": "Write|Edit|MultiEdit|NotebookEdit|Bash|PowerShell",
         "hooks": [
-          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/approval-gate-guard.mjs\"", "timeout": 15 }
+          { "type": "command", "command": "node \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/approval-gate-guard.mjs\"", "timeout": 15 }
         ]
       },
       {
         "matcher": "Write|Edit|MultiEdit",
         "hooks": [
-          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/no-leak-guard.mjs\"", "timeout": 15 }
+          { "type": "command", "command": "node \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/no-leak-guard.mjs\"", "timeout": 15 }
         ]
       }
     ],
@@ -43,14 +43,14 @@
       {
         "matcher": "Write|Edit|MultiEdit",
         "hooks": [
-          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/post-write-state.mjs\"", "timeout": 15 }
+          { "type": "command", "command": "node \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/post-write-state.mjs\"", "timeout": 15 }
         ]
       }
     ],
     "UserPromptSubmit": [
       {
         "hooks": [
-          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/approval-recorder.mjs\"", "timeout": 15 }
+          { "type": "command", "command": "node \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/approval-recorder.mjs\"", "timeout": 15 }
         ]
       }
     ]

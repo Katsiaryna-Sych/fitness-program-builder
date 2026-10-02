@@ -19,6 +19,12 @@ Arguments: `$ARGUMENTS`
 - otherwise → new run: run-id = `<YYYYMMDD>-<3–5 word kebab slug of goal/context>` (e.g. `20261002-home-beginner-strength`).
   If it already exists, append `-2`, `-3`… Then `$S init <run-id> "<request verbatim>"`.
 
+## 0.5 Preflight — hooks must be live (new runs and every resume)
+Write `runs/<run-id>/input/hook-check.md` with the Write tool (content: `hook self-check <ISO time>`), then run
+`$S hooks-check <run-id>`. If it fails, **stop immediately**: tell the user the project hooks are not loaded (the session
+was not started in the repository root), so approval cannot be verified, and that they must open a new session in the
+repository root and run `/build-program resume <run-id>`. Never continue without live hooks.
+
 ## 1. Requirements (gather → capture → confirm)
 1. `$S start <run-id> requirements`; launch **intake-analyst** (mode `draft`).
 2. While its RESULT reports `open_questions > 0` (max 3 rounds):
@@ -101,7 +107,7 @@ Report: paths of `runs/<run-id>/output/fitness-program.html` and `.md`, number o
 rounds. If html-builder was blocked by the approval guard, explain why and return to **6**.
 
 ## R. Resume
-1. `$S status <run-id>`; tell the user what is already done and will be reused.
+1. Run the **0.5 Preflight**. Then `$S status <run-id>`; tell the user what is already done and will be reused.
 2. If requirements are not confirmed → continue at **1** (reuse existing clarifications.md).
 3. If the plan is empty → **2**. Otherwise continue at **3** — `next` / `awaitingGate` already exclude finished work.
 4. If `approval` is next: if approval.json is `approved` and its hash equals the current draft hash → **7**, else **6**.
