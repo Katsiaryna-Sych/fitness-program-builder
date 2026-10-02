@@ -16,7 +16,9 @@ try { state = loadState(loc.runId); } catch { process.exit(0); }
 
 const by = input.agent_type || "coordinator";
 const hash = sha256File(loc.abs);
-const step = Object.entries(state.steps).find(([, s]) => s.artifact === loc.rel);
+// Output files are checked first: output/fitness-program.html is also the `final` step's artifact, and the run is
+// complete only when BOTH deliverables exist, which the generic artifact branch below cannot express.
+const step = loc.rel.startsWith("output/") ? null : Object.entries(state.steps).find(([, s]) => s.artifact === loc.rel);
 
 if (step) {
   const [id, s] = step;

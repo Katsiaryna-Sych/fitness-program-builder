@@ -1,0 +1,389 @@
+{
+  "schemaVersion": 1,
+  "runId": "20261002-home-beginner-strength",
+  "request": "I want to get stronger at home. I have no equipment, only a yoga mat. I can train 3 times a week for about 30 minutes. I'm a complete beginner.",
+  "status": "completed",
+  "maxRetries": 3,
+  "requirementsConfirmed": true,
+  "plan": {
+    "selected": [
+      "requirements",
+      "exercises",
+      "program",
+      "nutrition",
+      "progress",
+      "validation",
+      "draft",
+      "approval",
+      "final"
+    ],
+    "skipped": {
+      "safety": "needs_safety=no needs_cardio=no needs_nutrition=yes",
+      "cardio": "needs_safety=no needs_cardio=no needs_nutrition=yes"
+    }
+  },
+  "validationRounds": 2,
+  "approval": {
+    "status": "approved",
+    "draftSha256": "5e36558ab354ea801a672b612fc68ceec31e7a02f2b65a294d0584def6c08cf5",
+    "rounds": 1
+  },
+  "steps": {
+    "requirements": {
+      "agent": "intake-analyst",
+      "artifact": "artifacts/01-requirements.md",
+      "dependsOn": [],
+      "conditional": false,
+      "status": "done",
+      "attempts": 1,
+      "sha256": "6d60f5c29ed575a19940a8634f46618c614e396dc17247c533dbdfdddbc4923b",
+      "updatedAt": "2026-10-02T09:59:26.311Z",
+      "notes": []
+    },
+    "exercises": {
+      "agent": "exercise-researcher",
+      "artifact": "artifacts/02-exercise-library.md",
+      "dependsOn": [
+        "requirements"
+      ],
+      "conditional": false,
+      "status": "done",
+      "attempts": 1,
+      "sha256": "ca7d0c7f99ae4f90d62a0c49bb3c74ce97c254657e4675384a203cc185bfff86",
+      "updatedAt": "2026-10-02T10:00:44.063Z",
+      "notes": []
+    },
+    "safety": {
+      "agent": "safety-analyst",
+      "artifact": "artifacts/03-safety-guidelines.md",
+      "dependsOn": [
+        "requirements"
+      ],
+      "conditional": true,
+      "status": "skipped",
+      "attempts": 0,
+      "sha256": null,
+      "updatedAt": null,
+      "notes": []
+    },
+    "cardio": {
+      "agent": "cardio-planner",
+      "artifact": "artifacts/04-cardio-plan.md",
+      "dependsOn": [
+        "requirements"
+      ],
+      "conditional": true,
+      "status": "skipped",
+      "attempts": 0,
+      "sha256": null,
+      "updatedAt": null,
+      "notes": []
+    },
+    "program": {
+      "agent": "program-designer",
+      "artifact": "artifacts/05-training-program.md",
+      "dependsOn": [
+        "exercises",
+        "safety",
+        "cardio"
+      ],
+      "conditional": false,
+      "status": "done",
+      "attempts": 2,
+      "sha256": "942d3c80dd0dbba102cffffc5e5dad6a022bc4b3be293c1bbc54625fc23dcd23",
+      "updatedAt": "2026-10-02T10:14:28.000Z",
+      "notes": [
+        {
+          "ts": "2026-10-02T10:11:24.434Z",
+          "attempt": 1,
+          "finding": "G2: compute per-set work time as top-of-range reps x seconds per rep (tempo, pauses, holds, both sides) and show worst-case arithmetic for weeks 4-11; bring Sessions A, B and C to <=30 min. Currently C is 30.2 min in weeks 4-8 and ~30.7-31.0 in weeks 9-11 (Hip Raise 3-s pause: 12 reps x 6 s = 72 s/set; Superman 4-5 s holds: 10 reps = 60-70 s/set), A ~31.3 in weeks 9-11 (Single Leg Glute Bridge with 2-s squeeze, 12/leg both legs ~120 s/set but budgeted 75 s), B 29.97."
+        }
+      ]
+    },
+    "nutrition": {
+      "agent": "nutrition-planner",
+      "artifact": "artifacts/06-nutrition-recovery.md",
+      "dependsOn": [
+        "requirements",
+        "program"
+      ],
+      "conditional": true,
+      "status": "done",
+      "attempts": 2,
+      "sha256": "1a9ac9fbf2bfb8b1fc8d0421869ef917a48091051299096fa26e78fdfd149caa",
+      "updatedAt": "2026-10-02T10:15:42.947Z",
+      "notes": []
+    },
+    "progress": {
+      "agent": "progress-planner",
+      "artifact": "artifacts/07-progress-assessment.md",
+      "dependsOn": [
+        "program",
+        "safety"
+      ],
+      "conditional": false,
+      "status": "done",
+      "attempts": 2,
+      "sha256": "ef444c0c36cda6d145d6b84b904e904c578898420c45eb5655e8c611cfda24c6",
+      "updatedAt": "2026-10-02T10:15:43.417Z",
+      "notes": []
+    },
+    "validation": {
+      "agent": "validator",
+      "artifact": "artifacts/validation-report.md",
+      "dependsOn": [
+        "exercises",
+        "safety",
+        "cardio",
+        "program",
+        "nutrition",
+        "progress"
+      ],
+      "conditional": false,
+      "status": "done",
+      "attempts": 2,
+      "sha256": "6f44ed0dda39dbe9ab67e300219c200d896f066508dced587c425f180eec576e",
+      "updatedAt": "2026-10-02T10:17:44.195Z",
+      "notes": []
+    },
+    "draft": {
+      "agent": "synthesizer",
+      "artifact": "artifacts/program-draft.md",
+      "dependsOn": [
+        "validation"
+      ],
+      "conditional": false,
+      "status": "done",
+      "attempts": 1,
+      "sha256": "5e36558ab354ea801a672b612fc68ceec31e7a02f2b65a294d0584def6c08cf5",
+      "updatedAt": "2026-10-02T10:19:48.002Z",
+      "notes": []
+    },
+    "approval": {
+      "agent": "human",
+      "artifact": "approval.json",
+      "dependsOn": [
+        "draft"
+      ],
+      "conditional": false,
+      "status": "done",
+      "attempts": 0,
+      "sha256": null,
+      "updatedAt": null,
+      "notes": []
+    },
+    "final": {
+      "agent": "html-builder",
+      "artifact": "output/fitness-program.html",
+      "dependsOn": [
+        "approval"
+      ],
+      "conditional": false,
+      "status": "done",
+      "attempts": 0,
+      "sha256": "b17a3fc3c0ac813c02cad0853ac647f41102ce22c4aa5e412976f9c7188a6ffd",
+      "updatedAt": "2026-10-02T12:34:05.725Z",
+      "notes": [],
+      "writtenBy": "html-builder"
+    }
+  },
+  "createdAt": "2026-10-02T09:50:46.167Z",
+  "updatedAt": "2026-10-02T12:34:15.993Z",
+  "history": [
+    {
+      "ts": "2026-10-02T09:50:46.169Z",
+      "event": "init",
+      "detail": "run created"
+    },
+    {
+      "ts": "2026-10-02T09:50:46.625Z",
+      "event": "start",
+      "detail": "requirements"
+    },
+    {
+      "ts": "2026-10-02T09:54:07.671Z",
+      "event": "gate-pass",
+      "detail": "requirements"
+    },
+    {
+      "ts": "2026-10-02T09:54:08.131Z",
+      "event": "requirements-confirmed",
+      "detail": "user confirmed requirements"
+    },
+    {
+      "ts": "2026-10-02T09:54:08.590Z",
+      "event": "plan",
+      "detail": "selected=requirements,exercises,program,nutrition,progress,validation,draft,approval,final skipped=safety,cardio needs_safety=no needs_cardio=no needs_nutrition=yes"
+    },
+    {
+      "ts": "2026-10-02T09:54:25.585Z",
+      "event": "start",
+      "detail": "exercises"
+    },
+    {
+      "ts": "2026-10-02T09:58:57.569Z",
+      "event": "invalidate",
+      "detail": "requirements,exercises,program,nutrition,validation,draft,approval,final,progress equipment change: client has a sturdy household chair"
+    },
+    {
+      "ts": "2026-10-02T09:58:58.017Z",
+      "event": "start",
+      "detail": "requirements"
+    },
+    {
+      "ts": "2026-10-02T09:59:26.312Z",
+      "event": "gate-pass",
+      "detail": "requirements"
+    },
+    {
+      "ts": "2026-10-02T09:59:26.794Z",
+      "event": "requirements-confirmed",
+      "detail": "user confirmed requirements"
+    },
+    {
+      "ts": "2026-10-02T09:59:27.272Z",
+      "event": "plan",
+      "detail": "selected=requirements,exercises,program,nutrition,progress,validation,draft,approval,final skipped=safety,cardio needs_safety=no needs_cardio=no needs_nutrition=yes"
+    },
+    {
+      "ts": "2026-10-02T09:59:33.694Z",
+      "event": "start",
+      "detail": "exercises"
+    },
+    {
+      "ts": "2026-10-02T10:00:44.065Z",
+      "event": "gate-pass",
+      "detail": "exercises"
+    },
+    {
+      "ts": "2026-10-02T10:00:45.002Z",
+      "event": "start",
+      "detail": "program"
+    },
+    {
+      "ts": "2026-10-02T10:06:04.621Z",
+      "event": "gate-pass",
+      "detail": "program"
+    },
+    {
+      "ts": "2026-10-02T10:06:05.605Z",
+      "event": "start",
+      "detail": "nutrition,progress"
+    },
+    {
+      "ts": "2026-10-02T10:08:13.746Z",
+      "event": "gate-pass",
+      "detail": "nutrition"
+    },
+    {
+      "ts": "2026-10-02T10:08:14.199Z",
+      "event": "gate-pass",
+      "detail": "progress"
+    },
+    {
+      "ts": "2026-10-02T10:08:15.149Z",
+      "event": "validation-round",
+      "detail": "1"
+    },
+    {
+      "ts": "2026-10-02T10:08:15.635Z",
+      "event": "start",
+      "detail": "validation"
+    },
+    {
+      "ts": "2026-10-02T10:11:24.435Z",
+      "event": "gate-fail",
+      "detail": "program (attempt 1): G2: compute per-set work time as top-of-range reps x seconds per rep (tempo, pauses, holds, both sides) and show worst-case arithmetic for weeks 4-11; bring Sessions A, B and C to <=30 min. Currently C is 30.2 min in weeks 4-8 and ~30.7-31.0 in weeks 9-11 (Hip Raise 3-s pause: 12 reps x 6 s = 72 s/set; Superman 4-5 s holds: 10 reps = 60-70 s/set), A ~31.3 in weeks 9-11 (Single Leg Glute Bridge with 2-s squeeze, 12/leg both legs ~120 s/set but budgeted 75 s), B 29.97."
+    },
+    {
+      "ts": "2026-10-02T10:11:32.607Z",
+      "event": "start",
+      "detail": "program"
+    },
+    {
+      "ts": "2026-10-02T10:14:28.001Z",
+      "event": "gate-pass",
+      "detail": "program"
+    },
+    {
+      "ts": "2026-10-02T10:14:28.995Z",
+      "event": "start",
+      "detail": "nutrition,progress"
+    },
+    {
+      "ts": "2026-10-02T10:15:42.948Z",
+      "event": "gate-pass",
+      "detail": "nutrition"
+    },
+    {
+      "ts": "2026-10-02T10:15:43.419Z",
+      "event": "gate-pass",
+      "detail": "progress"
+    },
+    {
+      "ts": "2026-10-02T10:15:44.398Z",
+      "event": "validation-round",
+      "detail": "2"
+    },
+    {
+      "ts": "2026-10-02T10:15:44.846Z",
+      "event": "start",
+      "detail": "validation"
+    },
+    {
+      "ts": "2026-10-02T10:17:44.196Z",
+      "event": "gate-pass",
+      "detail": "validation"
+    },
+    {
+      "ts": "2026-10-02T10:17:45.142Z",
+      "event": "start",
+      "detail": "draft"
+    },
+    {
+      "ts": "2026-10-02T10:19:48.003Z",
+      "event": "gate-pass",
+      "detail": "draft"
+    },
+    {
+      "ts": "2026-10-02T10:19:48.488Z",
+      "event": "approval-requested",
+      "detail": "5e36558ab354"
+    },
+    {
+      "ts": "2026-10-02T12:27:50.148Z",
+      "event": "file-written",
+      "detail": "input/hook-check.md by coordinator"
+    },
+    {
+      "ts": "2026-10-02T12:28:14.247Z",
+      "event": "approval-requested",
+      "detail": "5e36558ab354"
+    },
+    {
+      "ts": "2026-10-02T12:30:35.563Z",
+      "event": "approval-approved",
+      "detail": "round 1"
+    },
+    {
+      "ts": "2026-10-02T12:31:54.440Z",
+      "event": "output-written",
+      "detail": "output/fitness-program.md by html-builder"
+    },
+    {
+      "ts": "2026-10-02T12:33:28.443Z",
+      "event": "artifact-written",
+      "detail": "output/fitness-program.html by html-builder (sha256 b17a3fc3c0ac)"
+    },
+    {
+      "ts": "2026-10-02T12:34:05.727Z",
+      "event": "gate-pass",
+      "detail": "final"
+    },
+    {
+      "ts": "2026-10-02T12:34:15.991Z",
+      "event": "status",
+      "detail": "completed"
+    }
+  ]
+}

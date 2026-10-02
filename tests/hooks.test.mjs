@@ -73,6 +73,15 @@ try {
   expect("APPROVE recorded", readState().approval.status === "approved");
   expect("non-html-builder cannot write output", denied(hook("approval-gate-guard", write("synthesizer", "output/fitness-program.html"))));
   expect("html-builder may write output after approval", !denied(hook("approval-gate-guard", write("html-builder", "output/fitness-program.html"))));
+  // completion: run is completed only after both deliverables are written
+  fs.mkdirSync(file("output"), { recursive: true });
+  fs.writeFileSync(file("output/fitness-program.html"), "<html></html>");
+  hook("post-write-state", write("html-builder", "output/fitness-program.html"));
+  expect("one output file does not complete the run", readState().status !== "completed");
+  fs.writeFileSync(file("output/fitness-program.md"), "# Program\n");
+  hook("post-write-state", write("html-builder", "output/fitness-program.md"));
+  expect("both outputs complete the run", readState().status === "completed" && readState().steps.final.status === "done");
+
   fs.appendFileSync(file("artifacts/program-draft.md"), "tampered\n");
   expect("output blocked when draft changed after approval", denied(hook("approval-gate-guard", write("html-builder", "output/fitness-program.html"))));
   expect("unrelated prompts pass through", hook("approval-recorder", { prompt: "how long is week 3?" }) === null);
