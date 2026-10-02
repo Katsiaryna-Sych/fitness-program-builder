@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<style>
+  :root {
+    --bg: #f6f7f4; --surface: #ffffff; --ink: #1d2320; --muted: #5d6762; --line: #dfe3dd;
+    --accent: #1f7a5a; --accent-soft: #e3f1ea; --warn: #9a5b00; --warn-soft: #fff3df;
+    --radius: 12px; --shadow: 0 1px 2px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #131715; --surface: #1b201d; --ink: #e8ece9; --muted: #9aa59f; --line: #2c332f;
+            --accent: #5cc79c; --accent-soft: #1d3329; --warn: #f0b35a; --warn-soft: #33281a; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header.hero { background: var(--accent); color: #fff; padding: 48px 16px 40px; }
+  header.hero .wrap { max-width: 980px; margin: 0 auto; }
+  header.hero h1 { margin: 0 0 8px; font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.15; }
+  header.hero p { margin: 0; opacity: .9; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .chip { background: rgba(255,255,255,.16); border-radius: 999px; padding: 4px 12px; font-size: .9rem; }
+  nav.toc { max-width: 980px; margin: -20px auto 0; padding: 12px 16px; background: var(--surface);
+            border-radius: var(--radius); box-shadow: var(--shadow); display: flex; flex-wrap: wrap; gap: 4px 16px;
+            position: relative; }
+  nav.toc a { color: var(--accent); text-decoration: none; font-size: .92rem; }
+  main { max-width: 980px; margin: 0 auto; padding: 24px 16px 64px; }
+  section { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+            padding: 24px; margin: 20px 0; box-shadow: var(--shadow); }
+  section > h2 { margin: 0 0 12px; font-size: 1.4rem; display: flex; align-items: baseline; gap: 10px; }
+  section > h2 .num { color: var(--accent); font-variant-numeric: tabular-nums; font-size: 1rem; }
+  h3 { margin: 24px 0 8px; font-size: 1.1rem; }
+  .session { border-left: 4px solid var(--accent); padding-left: 16px; margin: 20px 0; }
+  .callout { background: var(--warn-soft); border-left: 4px solid var(--warn); padding: 12px 16px; border-radius: 8px; }
+  .note { background: var(--accent-soft); padding: 12px 16px; border-radius: 8px; }
+  .table-wrap { overflow-x: auto; margin: 12px 0; }
+  table { border-collapse: collapse; width: 100%; font-size: .94rem; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--accent-soft); font-weight: 600; white-space: nowrap; }
+  a { color: var(--accent); }
+  ul, ol { padding-left: 1.3rem; }
+  footer { max-width: 980px; margin: 0 auto; padding: 0 16px 48px; color: var(--muted); font-size: .85rem; }
+  @media print {
+    body { background: #fff; } nav.toc { display: none; } header.hero { padding: 24px 16px; }
+    section { box-shadow: none; break-inside: avoid-page; }
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <h1>{{TITLE}}</h1>
+    <p>{{SUBTITLE}}</p>
+    <div class="chips">{{CHIPS}}</div>
+  </div>
+</header>
+<nav class="toc" aria-label="Contents">
+  <a href="#overview">Overview</a><a href="#profile">Profile</a><a href="#safety">Safety</a>
+  <a href="#schedule">Schedule</a><a href="#sessions">Workouts</a><a href="#cardio">Cardio</a>
+  <a href="#progression">Progression</a><a href="#nutrition">Nutrition &amp; Recovery</a>
+  <a href="#tracking">Tracking</a><a href="#exercises">Exercises</a><a href="#sources">Sources</a>
+</nav>
+<main>
+  <section id="overview"><h2><span class="num">01</span>Program Overview</h2>{{OVERVIEW}}</section>
+  <section id="profile"><h2><span class="num">02</span>Your Profile &amp; Requirements</h2>{{PROFILE}}</section>
+  <section id="safety"><h2><span class="num">03</span>Safety Notes</h2>{{SAFETY}}</section>
+  <section id="schedule"><h2><span class="num">04</span>Weekly Schedule</h2>{{SCHEDULE}}</section>
+  <section id="sessions"><h2><span class="num">05</span>Workout Sessions</h2>{{SESSIONS}}</section>
+  <section id="cardio"><h2><span class="num">06</span>Cardio &amp; Conditioning</h2>{{CARDIO}}</section>
+  <section id="progression"><h2><span class="num">07</span>Progression Plan</h2>{{PROGRESSION}}</section>
+  <section id="nutrition"><h2><span class="num">08</span>Nutrition &amp; Recovery</h2>{{NUTRITION}}</section>
+  <section id="tracking"><h2><span class="num">09</span>Tracking &amp; Assessments</h2>{{TRACKING}}</section>
+  <section id="exercises"><h2><span class="num">10</span>Exercise Reference</h2>{{EXERCISES}}</section>
+  <section id="sources"><h2><span class="num">11</span>Sources</h2>{{SOURCES}}</section>
+  <section id="disclaimer"><h2><span class="num">12</span>Disclaimer</h2><div class="callout">{{DISCLAIMER}}</div></section>
+</main>
+<footer>Generated {{DATE}} · Exercise data: wger.de (CC-BY-SA) · General fitness guidance, not medical advice.</footer>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "wger": {
+      "type": "stdio",
+      "command": "dotnet",
+      "args": ["mcp/WgerMcp/bin/Release/net10.0/WgerMcp.dll"],
+      "env": {
+        "WGER_BASE_URL": "https://wger.de/"
+      }
+    }
+  }
+}

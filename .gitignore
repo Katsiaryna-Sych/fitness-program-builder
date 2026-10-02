@@ -1,0 +1,22 @@
+# .NET build output
+bin/
+obj/
+*.user
+
+# Secrets / local config — never commit
+.env
+.env.*
+!.env.example
+.claude/settings.local.json
+*.pem
+*.key
+
+# Editors / OS
+.vs/
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+
+# Temporary state files from interrupted atomic writes
+runs/**/*.tmp

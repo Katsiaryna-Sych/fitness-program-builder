@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": ["wger"],
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch",
+      "mcp__wger__list_equipment",
+      "mcp__wger__list_categories",
+      "mcp__wger__list_muscles",
+      "mcp__wger__search_exercises",
+      "mcp__wger__get_exercise",
+      "Read(runs/**)",
+      "Write(runs/**)",
+      "Edit(runs/**)",
+      "Bash(node .claude/skills/workflow-state/scripts/state.mjs:*)",
+      "Bash(node .claude/skills/artifact-validator/scripts/check-artifact.mjs:*)",
+      "PowerShell(node .claude/skills/workflow-state/scripts/state.mjs:*)",
+      "PowerShell(node .claude/skills/artifact-validator/scripts/check-artifact.mjs:*)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit|Bash|PowerShell",
+        "hooks": [
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/approval-gate-guard.mjs\"", "timeout": 15 }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/no-leak-guard.mjs\"", "timeout": 15 }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/post-write-state.mjs\"", "timeout": 15 }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/approval-recorder.mjs\"", "timeout": 15 }
+        ]
+      }
+    ]
+  }
+}

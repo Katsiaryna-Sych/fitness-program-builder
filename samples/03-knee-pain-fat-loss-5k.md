@@ -1,0 +1,1 @@
+/build-program I'm 52, female, 168 cm, 84 kg. I want to lose weight and be able to run 5 km without stopping by the end of the program. I have mild knee pain (patellofemoral, diagnosed by my doctor, cleared for exercise). At home I have dumbbells up to 10 kg and resistance bands. I can train 3 days a week, 45 minutes max. Please include nutrition tips.
