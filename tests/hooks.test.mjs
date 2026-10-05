@@ -71,6 +71,8 @@ try {
   expect("output blocked after rejection", denied(hook("approval-gate-guard", write("html-builder", "output/fitness-program.html"))));
   hook("approval-recorder", { prompt: `APPROVE ${RUN} ${short}` });
   expect("APPROVE recorded", readState().approval.status === "approved");
+  state("draft-hash", RUN);
+  expect("draft-hash after APPROVE keeps the approval", readState().approval.status === "approved");
   expect("non-html-builder cannot write output", denied(hook("approval-gate-guard", write("synthesizer", "output/fitness-program.html"))));
   expect("html-builder may write output after approval", !denied(hook("approval-gate-guard", write("html-builder", "output/fitness-program.html"))));
   // completion: run is completed only after both deliverables are written

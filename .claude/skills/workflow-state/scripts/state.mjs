@@ -18,7 +18,9 @@
 //   next <run-id>                            print the next runnable group (JSON)
 //   status <run-id>                          print a human-readable summary
 //   hooks-check <run-id>                     verify the PostToolUse hook logged input/hook-check.md (hooks are live)
-//   draft-hash <run-id>                     hash the draft, mark approval pending, print the APPROVE/REJECT phrases
+//   draft-hash <run-id>                     hash the draft; unless already approved with this hash, mark approval
+//                                           pending; print the APPROVE/REJECT phrases
+//   sync-approval <run-id>                  restore the approval summary from approval.json
 //   list                                     list runs and their status
 import fs from "node:fs";
 import path from "node:path";
@@ -205,15 +207,34 @@ switch (cmd) {
     console.log("hooks active");
     break;
   }
+  case "sync-approval": {
+    // Re-derive the approval summary from approval.json (written only by the human approval hook).
+    const state = loadState(runId);
+    const file = path.join(runDir(runId), "approval.json");
+    if (!fs.existsSync(file)) die("approval.json does not exist");
+    const record = JSON.parse(fs.readFileSync(file, "utf8"));
+    const current = sha256File(path.join(runDir(runId), state.steps.draft.artifact));
+    const valid = record.status === "approved" && record.draftSha256 === current;
+    state.approval = { status: record.status === "approved" && !valid ? "invalidated" : record.status,
+                       draftSha256: record.draftSha256, rounds: record.rounds?.length || 0 };
+    addEvent(state, "approval-synced", `${state.approval.status} from approval.json`);
+    saveState(state);
+    console.log(JSON.stringify(state.approval));
+    break;
+  }
   case "draft-hash": {
     const state = loadState(runId);
     const hash = sha256File(path.join(runDir(runId), state.steps.draft.artifact));
     if (!hash) die("program-draft.md does not exist yet");
-    state.approval = { ...state.approval, status: "pending", draftSha256: hash };
-    state.status = "awaiting-approval";
-    addEvent(state, "approval-requested", hash.slice(0, 12));
-    saveState(state);
-    console.log(JSON.stringify({ sha256: hash, short: hash.slice(0, 8),
+    // Never downgrade a valid approval: checking the hash after APPROVE must not reset it to pending.
+    const approved = state.approval.status === "approved" && state.approval.draftSha256 === hash;
+    if (!approved) {
+      state.approval = { ...state.approval, status: "pending", draftSha256: hash };
+      state.status = "awaiting-approval";
+      addEvent(state, "approval-requested", hash.slice(0, 12));
+      saveState(state);
+    }
+    console.log(JSON.stringify({ sha256: hash, short: hash.slice(0, 8), approved,
       approve: `APPROVE ${runId} ${hash.slice(0, 8)}`, reject: `REJECT ${runId}: <what to change>` }));
     break;
   }

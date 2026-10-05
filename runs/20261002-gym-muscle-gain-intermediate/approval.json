@@ -1,0 +1,14 @@
+{
+  "rounds": [
+    {
+      "round": 1,
+      "decision": "approved",
+      "draftSha256": "14c592abc14ccebd94fc86081572e41e5a98f6ad34f733367925bcad9692414c",
+      "at": "2026-10-05T07:56:37.570Z"
+    }
+  ],
+  "status": "approved",
+  "draftSha256": "14c592abc14ccebd94fc86081572e41e5a98f6ad34f733367925bcad9692414c",
+  "decidedAt": "2026-10-05T07:56:37.569Z",
+  "decidedBy": "human (UserPromptSubmit hook)"
+}

@@ -23,6 +23,8 @@ S="node .claude/skills/workflow-state/scripts/state.mjs"
 | gate failed | `$S fail <run-id> <step> "<finding>"` → `failed`, or `blocked` once attempts reach the limit (3); dependents become `stale` |
 | human rejection / upstream change | `$S invalidate <run-id> <step> "<reason>"` → step + all dependents `stale`, fresh retry budget |
 | each validator run | `$S validation-round <run-id>` |
+| before asking for approval | `$S draft-hash <run-id>` → `{short, approved, approve, reject}` (keeps a valid approval) |
+| approval summary out of sync | `$S sync-approval <run-id>` (re-derives it from `approval.json`) |
 | what to run next | `$S next <run-id>` → `{"next":[…],"awaitingGate":[…],"status":…}` |
 | human summary | `$S status <run-id>` |
 | all runs | `$S list` |
