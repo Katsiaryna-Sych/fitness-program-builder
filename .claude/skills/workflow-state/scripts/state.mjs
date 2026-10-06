@@ -106,8 +106,11 @@ switch (cmd) {
     for (const id of rest) {
       const st = state.steps[id];
       if (st.status === "blocked") die(`step '${id}' is blocked (retry limit reached)`);
+      // A step still `running` was interrupted (crash/restart) before producing its artifact: restarting it
+      // continues the same attempt, so interruptions never consume the quality-gate retry budget.
+      if (st.status === "running") addEvent(state, "resume-attempt", `${id} attempt ${st.attempts} restarted after interruption`);
+      else st.attempts += 1;
       st.status = "running";
-      st.attempts += 1;
       st.updatedAt = now();
     }
     addEvent(state, "start", rest.join(","));

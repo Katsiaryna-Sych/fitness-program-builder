@@ -1,0 +1,21 @@
+{
+  "rounds": [
+    {
+      "round": 1,
+      "decision": "rejected",
+      "draftSha256": "7d8679542dd5bf68e8068ab57af4d8a8be8f0a55100a7f98385364335e2f198b",
+      "feedback": "make weeks 1-2 walk-only (no running intervals) and add one more upper-body exercise to Sessions A and B",
+      "at": "2026-10-05T12:25:32.442Z"
+    },
+    {
+      "round": 2,
+      "decision": "approved",
+      "draftSha256": "2c7438954bb79301c6b6373128561bf188eb988951c7d5d230fdd850f11621fd",
+      "at": "2026-10-06T07:41:47.552Z"
+    }
+  ],
+  "status": "approved",
+  "draftSha256": "2c7438954bb79301c6b6373128561bf188eb988951c7d5d230fdd850f11621fd",
+  "decidedAt": "2026-10-06T07:41:47.550Z",
+  "decidedBy": "human (UserPromptSubmit hook)"
+}

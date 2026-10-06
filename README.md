@@ -91,11 +91,11 @@ node .claude/skills/workflow-state/scripts/state.mjs status <run-id>
 
 ## Sample runs
 
-| run | input | scenario shown |
-|---|---|---|
-| see `runs/` | [samples/01-home-beginner.md](samples/01-home-beginner.md) | minimal plan: safety, cardio and nutrition skipped; bodyweight-only equipment |
-| | [samples/02-gym-hypertrophy-nutrition.md](samples/02-gym-hypertrophy-nutrition.md) | full gym, nutrition agent selected, calorie maths from real data |
-| | [samples/03-knee-pain-fat-loss-5k.md](samples/03-knee-pain-fat-loss-5k.md) | every agent selected, safety constraints, rejection → revision → re-approval |
+| run | input | agents selected | what it demonstrates |
+|---|---|---|---|
+| [20261002-home-beginner-strength](runs/20261002-home-beginner-strength/) | [samples/01-home-beginner.md](samples/01-home-beginner.md) | safety and cardio **skipped** | clarification mid-run (a chair added → requirements and exercise library regenerated); **G2 fail** (sessions 30–31 min > 30) → only program + dependents re-run, 2 validation rounds; **resume in a new session** at the approval step |
+| [20261002-gym-muscle-gain-intermediate](runs/20261002-gym-muscle-gain-intermediate/) | [samples/02-gym-hypertrophy-nutrition.md](samples/02-gym-hypertrophy-nutrition.md) | safety and cardio skipped, **nutrition selected** | calorie/protein maths from real body data; 3 validation rounds with **targeted retries** of exercises (rack/incline exercises removed), nutrition and progress — progress succeeded on its **last allowed attempt** |
+| [20261005-home-weight-loss-5k](runs/20261005-home-weight-loss-5k/) | [samples/03-knee-pain-fat-loss-5k.md](samples/03-knee-pain-fat-loss-5k.md) | **all agents** | safety ‖ cardio conflict resolved by re-asking the user and re-confirming requirements; **interrupted + app restarted** during program design, resumed without repeating exercises/safety/cardio; **REJECT** with feedback → cardio + program regenerated, 4 validation rounds (G4, G2 fails) → **APPROVE** of the new hash |
 
 Each `runs/<run-id>/` contains `input/` (request + clarifications), `artifacts/`, `execution-plan.md`,
 `workflow-state.json` (with full history), `approval.json` (all approval rounds) and `output/`.

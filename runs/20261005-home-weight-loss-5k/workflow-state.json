@@ -1,0 +1,793 @@
+{
+  "schemaVersion": 1,
+  "runId": "20261005-home-weight-loss-5k",
+  "request": "I'm 52, female, 168 cm, 84 kg. I want to lose weight and be able to run 5 km without stopping by the end of the program. I have mild knee pain (patellofemoral, diagnosed by my doctor, cleared for exercise). At home I have dumbbells up to 10 kg and resistance bands. I can train 3 days a week, 45 minutes max. Please include nutrition tips.",
+  "status": "completed",
+  "maxRetries": 3,
+  "requirementsConfirmed": true,
+  "plan": {
+    "selected": [
+      "requirements",
+      "exercises",
+      "safety",
+      "cardio",
+      "program",
+      "nutrition",
+      "progress",
+      "validation",
+      "draft",
+      "approval",
+      "final"
+    ],
+    "skipped": {}
+  },
+  "validationRounds": 4,
+  "approval": {
+    "status": "approved",
+    "draftSha256": "2c7438954bb79301c6b6373128561bf188eb988951c7d5d230fdd850f11621fd",
+    "rounds": 2
+  },
+  "steps": {
+    "requirements": {
+      "agent": "intake-analyst",
+      "artifact": "artifacts/01-requirements.md",
+      "dependsOn": [],
+      "conditional": false,
+      "status": "done",
+      "attempts": 1,
+      "sha256": "35bb5dd00035b297a86354f83237e06ed15b3fdb1bd3d88c98e1844453bccd03",
+      "updatedAt": "2026-10-05T11:47:44.243Z",
+      "notes": [],
+      "writtenBy": "intake-analyst"
+    },
+    "exercises": {
+      "agent": "exercise-researcher",
+      "artifact": "artifacts/02-exercise-library.md",
+      "dependsOn": [
+        "requirements"
+      ],
+      "conditional": false,
+      "status": "done",
+      "attempts": 1,
+      "sha256": "43cf9ac45a1f38241f8a39c0efa0f657f5cbfba9762305b556bbf2b0e17f9789",
+      "updatedAt": "2026-10-05T11:49:43.960Z",
+      "notes": [],
+      "writtenBy": "exercise-researcher"
+    },
+    "safety": {
+      "agent": "safety-analyst",
+      "artifact": "artifacts/03-safety-guidelines.md",
+      "dependsOn": [
+        "requirements"
+      ],
+      "conditional": true,
+      "status": "done",
+      "attempts": 1,
+      "sha256": "e3228cbe5715f18a77d9df2539afbe08a0fb2422cf1339c7dcb16ba1b68bc607",
+      "updatedAt": "2026-10-05T11:49:44.460Z",
+      "notes": [],
+      "writtenBy": "safety-analyst"
+    },
+    "cardio": {
+      "agent": "cardio-planner",
+      "artifact": "artifacts/04-cardio-plan.md",
+      "dependsOn": [
+        "requirements"
+      ],
+      "conditional": true,
+      "status": "done",
+      "attempts": 1,
+      "sha256": "f48a07727772feb661091c820c3b68a45c079e21c9b2a9a92bd134fffbbf71b9",
+      "updatedAt": "2026-10-05T12:27:54.482Z",
+      "notes": [
+        {
+          "ts": "2026-10-05T11:39:28.985Z",
+          "attempt": 1,
+          "finding": "G4/G2 — align with 03-safety-guidelines.md, which now exists: (1) Running pain cap is 2/10 or less (not ~3/10); if pain exceeds 2/10, repeat or step back a week. (2) Once continuous jogging begins (any unbroken jog of 10+ min, currently week 6), total weekly jog minutes (A+B+C) may rise by no more than 10% per week; currently week 6->7 is about +24% (42->52) and 8->9 about +17% (54->63). Rebalance jog minutes between Days A/B and Day C so the 10% cap holds while Day C still builds to a continuous 5 km in week 10. (3) G2: make the week-10 Day C time math explicit with a pace consistent with your own estimate (25 min ≈ 3 km ≈ 8.3 min/km gives ≈ 42 min for 5 km); warm-up + 5 km + cool-down must be ≤ 45 min (e.g. 2 min brisk-walk warm-up and walking cool-down counted inside the limit, with a slow-jog start). State the pace needed for 5 km to fit. If a non-stop 5 km cannot fit in 45 min under these limits, say so plainly in the Summary instead of hiding it. Keep everything else unchanged."
+        },
+        {
+          "ts": "2026-10-05T12:09:29.982Z",
+          "attempt": 1,
+          "finding": "G4: week 2→3 changes both jog block length and repeat count while blocks are ≤ 5 min (Days A/B: 3×(1j/2w) → 3j,2w,2j; Day C: 5×(2j/2w) → 5j,2w,5j,2w,4j). Rewrite week 3 (and week 4 if needed) so only ONE variable (block length OR repeat count) changes per day vs the previous week, per validation-report Finding 1; make the 'first continuous week' label match the safety definition (preferably keep week-4 blocks ≤ 5 min); keep the weeks 5-10 ≤10% chain and session caps (≤45 min, Day C weeks 9-10 ≤ 52/60 min exception)."
+        }
+      ],
+      "writtenBy": "cardio-planner"
+    },
+    "program": {
+      "agent": "program-designer",
+      "artifact": "artifacts/05-training-program.md",
+      "dependsOn": [
+        "exercises",
+        "safety",
+        "cardio"
+      ],
+      "conditional": false,
+      "status": "done",
+      "attempts": 2,
+      "sha256": "d4e5bd157f980510a425513b653be134ca2ac8e391e9eff026a95f986aaa3b63",
+      "updatedAt": "2026-10-05T12:44:42.957Z",
+      "notes": [
+        {
+          "ts": "2026-10-05T12:40:37.682Z",
+          "attempt": 1,
+          "finding": "G2: Mon/Wed sessions planned at exactly 45.0 min assume ~45 s per work set, but reps × tempo run longer (box squat 12 reps with 3-s lowering ≈ 48-54 s; one-arm row 12/arm with 2-3 s lowering ≈ up to 48 s per arm; weeks 8-9 'reps up to 15 then 3-s tempo' ≈ 60 s), so real sessions are ≈ 45.3-47 min. Recompute every set from reps × tempo at the top of each rep range and bring every Mon/Wed session to ≤ 44 min (e.g. cut rest after the four main lifts from 60 s to 45 s, or use a weeks 8-9 progression that does not lengthen sets). Keep exercises 2642 and 1551, the 6:6 push:pull balance and the cardio blocks unchanged. Make the weekly volume range a single consistent value (text says 4-8 sets, table says 4-9)."
+        }
+      ],
+      "writtenBy": "program-designer"
+    },
+    "nutrition": {
+      "agent": "nutrition-planner",
+      "artifact": "artifacts/06-nutrition-recovery.md",
+      "dependsOn": [
+        "requirements",
+        "program"
+      ],
+      "conditional": true,
+      "status": "done",
+      "attempts": 2,
+      "sha256": "84b1c20b9069744056857a38425a5e439f6685744ea41b3c7249f5a70371510d",
+      "updatedAt": "2026-10-05T12:46:23.091Z",
+      "notes": [],
+      "writtenBy": "nutrition-planner"
+    },
+    "progress": {
+      "agent": "progress-planner",
+      "artifact": "artifacts/07-progress-assessment.md",
+      "dependsOn": [
+        "program",
+        "safety"
+      ],
+      "conditional": false,
+      "status": "done",
+      "attempts": 2,
+      "sha256": "68b87737615284ba7b43557941a392cb041bdaca4f195fbd1023ef415767be4f",
+      "updatedAt": "2026-10-05T12:46:23.736Z",
+      "notes": [],
+      "writtenBy": "progress-planner"
+    },
+    "validation": {
+      "agent": "validator",
+      "artifact": "artifacts/validation-report.md",
+      "dependsOn": [
+        "exercises",
+        "safety",
+        "cardio",
+        "program",
+        "nutrition",
+        "progress"
+      ],
+      "conditional": false,
+      "status": "done",
+      "attempts": 2,
+      "sha256": "7c8dfaac6d6fbf8f810676579d3b480be25bd2eaa427d3f3c0acfbea3cd63bff",
+      "updatedAt": "2026-10-05T12:50:48.475Z",
+      "notes": [],
+      "writtenBy": "validator"
+    },
+    "draft": {
+      "agent": "synthesizer",
+      "artifact": "artifacts/program-draft.md",
+      "dependsOn": [
+        "validation"
+      ],
+      "conditional": false,
+      "status": "done",
+      "attempts": 1,
+      "sha256": "2c7438954bb79301c6b6373128561bf188eb988951c7d5d230fdd850f11621fd",
+      "updatedAt": "2026-10-05T12:53:48.372Z",
+      "notes": [],
+      "writtenBy": "synthesizer"
+    },
+    "approval": {
+      "agent": "human",
+      "artifact": "approval.json",
+      "dependsOn": [
+        "draft"
+      ],
+      "conditional": false,
+      "status": "done",
+      "attempts": 0,
+      "sha256": null,
+      "updatedAt": null,
+      "notes": []
+    },
+    "final": {
+      "agent": "html-builder",
+      "artifact": "output/fitness-program.html",
+      "dependsOn": [
+        "approval"
+      ],
+      "conditional": false,
+      "status": "done",
+      "attempts": 0,
+      "sha256": "372f26e9bf0f56d91f4d99370b391c8cb77d34e2cb4263c6cece710a791d0ac1",
+      "updatedAt": "2026-10-06T07:45:49.521Z",
+      "notes": [],
+      "writtenBy": "html-builder"
+    }
+  },
+  "createdAt": "2026-10-05T11:34:36.895Z",
+  "updatedAt": "2026-10-06T07:45:49.521Z",
+  "history": [
+    {
+      "ts": "2026-10-05T11:34:36.897Z",
+      "event": "init",
+      "detail": "run created"
+    },
+    {
+      "ts": "2026-10-05T11:34:39.988Z",
+      "event": "file-written",
+      "detail": "input/hook-check.md by coordinator"
+    },
+    {
+      "ts": "2026-10-05T11:34:46.626Z",
+      "event": "start",
+      "detail": "requirements"
+    },
+    {
+      "ts": "2026-10-05T11:35:05.339Z",
+      "event": "artifact-written",
+      "detail": "artifacts/01-requirements.md by intake-analyst (sha256 bf0440e699ae)"
+    },
+    {
+      "ts": "2026-10-05T11:35:58.127Z",
+      "event": "file-written",
+      "detail": "input/clarifications.md by coordinator"
+    },
+    {
+      "ts": "2026-10-05T11:36:12.764Z",
+      "event": "artifact-written",
+      "detail": "artifacts/01-requirements.md by intake-analyst (sha256 cc006febb392)"
+    },
+    {
+      "ts": "2026-10-05T11:36:40.575Z",
+      "event": "gate-pass",
+      "detail": "requirements"
+    },
+    {
+      "ts": "2026-10-05T11:36:41.061Z",
+      "event": "requirements-confirmed",
+      "detail": "user confirmed requirements"
+    },
+    {
+      "ts": "2026-10-05T11:36:41.546Z",
+      "event": "plan",
+      "detail": "selected=requirements,exercises,safety,cardio,program,nutrition,progress,validation,draft,approval,final skipped=none needs_safety=yes, needs_cardio=yes, needs_nutrition=yes"
+    },
+    {
+      "ts": "2026-10-05T11:36:42.093Z",
+      "event": "start",
+      "detail": "exercises,safety,cardio"
+    },
+    {
+      "ts": "2026-10-05T11:36:44.946Z",
+      "event": "file-written",
+      "detail": "execution-plan.md by coordinator"
+    },
+    {
+      "ts": "2026-10-05T11:37:49.306Z",
+      "event": "artifact-written",
+      "detail": "artifacts/02-exercise-library.md by exercise-researcher (sha256 e49d5112e3cb)"
+    },
+    {
+      "ts": "2026-10-05T11:38:10.238Z",
+      "event": "artifact-written",
+      "detail": "artifacts/03-safety-guidelines.md by safety-analyst (sha256 08b2160df74c)"
+    },
+    {
+      "ts": "2026-10-05T11:38:11.344Z",
+      "event": "artifact-written",
+      "detail": "artifacts/02-exercise-library.md by exercise-researcher (sha256 c7d710a10f7b)"
+    },
+    {
+      "ts": "2026-10-05T11:38:30.637Z",
+      "event": "artifact-written",
+      "detail": "artifacts/04-cardio-plan.md by cardio-planner (sha256 2ed22e0fde49)"
+    },
+    {
+      "ts": "2026-10-05T11:39:27.980Z",
+      "event": "gate-pass",
+      "detail": "exercises"
+    },
+    {
+      "ts": "2026-10-05T11:39:28.492Z",
+      "event": "gate-pass",
+      "detail": "safety"
+    },
+    {
+      "ts": "2026-10-05T11:39:28.986Z",
+      "event": "gate-fail",
+      "detail": "cardio (attempt 1): G4/G2 — align with 03-safety-guidelines.md, which now exists: (1) Running pain cap is 2/10 or less (not ~3/10); if pain exceeds 2/10, repeat or step back a week. (2) Once continuous jogging begins (any unbroken jog of 10+ min, currently week 6), total weekly jog minutes (A+B+C) may rise by no more than 10% per week; currently week 6->7 is about +24% (42->52) and 8->9 about +17% (54->63). Rebalance jog minutes between Days A/B and Day C so the 10% cap holds while Day C still builds to a continuous 5 km in week 10. (3) G2: make the week-10 Day C time math explicit with a pace consistent with your own estimate (25 min ≈ 3 km ≈ 8.3 min/km gives ≈ 42 min for 5 km); warm-up + 5 km + cool-down must be ≤ 45 min (e.g. 2 min brisk-walk warm-up and walking cool-down counted inside the limit, with a slow-jog start). State the pace needed for 5 km to fit. If a non-stop 5 km cannot fit in 45 min under these limits, say so plainly in the Summary instead of hiding it. Keep everything else unchanged."
+    },
+    {
+      "ts": "2026-10-05T11:39:29.988Z",
+      "event": "start",
+      "detail": "cardio"
+    },
+    {
+      "ts": "2026-10-05T11:41:20.063Z",
+      "event": "artifact-written",
+      "detail": "artifacts/04-cardio-plan.md by cardio-planner (sha256 025a42136858)"
+    },
+    {
+      "ts": "2026-10-05T11:42:44.209Z",
+      "event": "invalidate",
+      "detail": "requirements,exercises,program,nutrition,validation,draft,approval,final,progress,safety,cardio client added exception: week 9 and week 10 Day C may run up to ~55 min"
+    },
+    {
+      "ts": "2026-10-05T11:42:45.177Z",
+      "event": "start",
+      "detail": "requirements"
+    },
+    {
+      "ts": "2026-10-05T11:43:02.491Z",
+      "event": "artifact-written",
+      "detail": "artifacts/01-requirements.md by intake-analyst (sha256 015adf336acd)"
+    },
+    {
+      "ts": "2026-10-05T11:43:29.226Z",
+      "event": "gate-pass",
+      "detail": "requirements"
+    },
+    {
+      "ts": "2026-10-05T11:43:29.715Z",
+      "event": "requirements-confirmed",
+      "detail": "user confirmed requirements"
+    },
+    {
+      "ts": "2026-10-05T11:43:30.201Z",
+      "event": "plan",
+      "detail": "selected=requirements,exercises,safety,cardio,program,nutrition,progress,validation,draft,approval,final skipped=none needs_safety=yes, needs_cardio=yes, needs_nutrition=yes (re-plan after round-2 duration exception)"
+    },
+    {
+      "ts": "2026-10-05T11:43:31.181Z",
+      "event": "start",
+      "detail": "exercises,safety,cardio"
+    },
+    {
+      "ts": "2026-10-05T11:44:10.663Z",
+      "event": "artifact-written",
+      "detail": "artifacts/02-exercise-library.md by exercise-researcher (sha256 4d9b2a58475a)"
+    },
+    {
+      "ts": "2026-10-05T11:44:42.039Z",
+      "event": "artifact-written",
+      "detail": "artifacts/03-safety-guidelines.md by safety-analyst (sha256 6169dca90de3)"
+    },
+    {
+      "ts": "2026-10-05T11:46:05.775Z",
+      "event": "artifact-written",
+      "detail": "artifacts/04-cardio-plan.md by cardio-planner (sha256 1eac3927c78c)"
+    },
+    {
+      "ts": "2026-10-05T11:47:04.251Z",
+      "event": "invalidate",
+      "detail": "requirements,exercises,program,nutrition,validation,draft,approval,final,progress,safety,cardio client changed exception: week 9/10 Day C up to ~60 min"
+    },
+    {
+      "ts": "2026-10-05T11:47:04.742Z",
+      "event": "start",
+      "detail": "requirements"
+    },
+    {
+      "ts": "2026-10-05T11:47:21.636Z",
+      "event": "artifact-written",
+      "detail": "artifacts/01-requirements.md by intake-analyst (sha256 35bb5dd00035)"
+    },
+    {
+      "ts": "2026-10-05T11:47:44.245Z",
+      "event": "gate-pass",
+      "detail": "requirements"
+    },
+    {
+      "ts": "2026-10-05T11:47:44.728Z",
+      "event": "requirements-confirmed",
+      "detail": "user confirmed requirements"
+    },
+    {
+      "ts": "2026-10-05T11:47:45.223Z",
+      "event": "plan",
+      "detail": "selected=requirements,exercises,safety,cardio,program,nutrition,progress,validation,draft,approval,final skipped=none needs_safety=yes, needs_cardio=yes, needs_nutrition=yes (re-plan after round-3 ~60 min long-run exception)"
+    },
+    {
+      "ts": "2026-10-05T11:47:45.749Z",
+      "event": "start",
+      "detail": "exercises,safety,cardio"
+    },
+    {
+      "ts": "2026-10-05T11:48:22.827Z",
+      "event": "artifact-written",
+      "detail": "artifacts/02-exercise-library.md by exercise-researcher (sha256 43cf9ac45a1f)"
+    },
+    {
+      "ts": "2026-10-05T11:48:41.391Z",
+      "event": "artifact-written",
+      "detail": "artifacts/03-safety-guidelines.md by safety-analyst (sha256 e3228cbe5715)"
+    },
+    {
+      "ts": "2026-10-05T11:49:12.158Z",
+      "event": "artifact-written",
+      "detail": "artifacts/04-cardio-plan.md by cardio-planner (sha256 801ec347a9b3)"
+    },
+    {
+      "ts": "2026-10-05T11:49:43.961Z",
+      "event": "gate-pass",
+      "detail": "exercises"
+    },
+    {
+      "ts": "2026-10-05T11:49:44.462Z",
+      "event": "gate-pass",
+      "detail": "safety"
+    },
+    {
+      "ts": "2026-10-05T11:49:44.944Z",
+      "event": "gate-pass",
+      "detail": "cardio"
+    },
+    {
+      "ts": "2026-10-05T11:49:45.902Z",
+      "event": "start",
+      "detail": "program"
+    },
+    {
+      "ts": "2026-10-05T11:55:23.398Z",
+      "event": "file-written",
+      "detail": "input/hook-check.md by coordinator"
+    },
+    {
+      "ts": "2026-10-05T11:55:59.360Z",
+      "event": "start",
+      "detail": "program"
+    },
+    {
+      "ts": "2026-10-05T12:01:51.411Z",
+      "event": "artifact-written",
+      "detail": "artifacts/05-training-program.md by program-designer (sha256 4a7304aa7734)"
+    },
+    {
+      "ts": "2026-10-05T12:02:25.644Z",
+      "event": "gate-pass",
+      "detail": "program"
+    },
+    {
+      "ts": "2026-10-05T12:02:26.556Z",
+      "event": "start",
+      "detail": "nutrition,progress"
+    },
+    {
+      "ts": "2026-10-05T12:04:09.043Z",
+      "event": "artifact-written",
+      "detail": "artifacts/07-progress-assessment.md by progress-planner (sha256 ef9810e6e64a)"
+    },
+    {
+      "ts": "2026-10-05T12:04:33.488Z",
+      "event": "artifact-written",
+      "detail": "artifacts/06-nutrition-recovery.md by nutrition-planner (sha256 96f7bc5e4ec2)"
+    },
+    {
+      "ts": "2026-10-05T12:04:58.608Z",
+      "event": "artifact-written",
+      "detail": "artifacts/06-nutrition-recovery.md by nutrition-planner (sha256 73290621ae03)"
+    },
+    {
+      "ts": "2026-10-05T12:05:22.248Z",
+      "event": "gate-pass",
+      "detail": "nutrition"
+    },
+    {
+      "ts": "2026-10-05T12:05:22.712Z",
+      "event": "gate-pass",
+      "detail": "progress"
+    },
+    {
+      "ts": "2026-10-05T12:05:23.642Z",
+      "event": "validation-round",
+      "detail": "1"
+    },
+    {
+      "ts": "2026-10-05T12:05:24.114Z",
+      "event": "start",
+      "detail": "validation"
+    },
+    {
+      "ts": "2026-10-05T12:09:00.266Z",
+      "event": "artifact-written",
+      "detail": "artifacts/validation-report.md by validator (sha256 53e8f7383157)"
+    },
+    {
+      "ts": "2026-10-05T12:09:29.481Z",
+      "event": "gate-pass",
+      "detail": "validation"
+    },
+    {
+      "ts": "2026-10-05T12:09:29.985Z",
+      "event": "gate-fail",
+      "detail": "cardio (attempt 1): G4: week 2→3 changes both jog block length and repeat count while blocks are ≤ 5 min (Days A/B: 3×(1j/2w) → 3j,2w,2j; Day C: 5×(2j/2w) → 5j,2w,5j,2w,4j). Rewrite week 3 (and week 4 if needed) so only ONE variable (block length OR repeat count) changes per day vs the previous week, per validation-report Finding 1; make the 'first continuous week' label match the safety definition (preferably keep week-4 blocks ≤ 5 min); keep the weeks 5-10 ≤10% chain and session caps (≤45 min, Day C weeks 9-10 ≤ 52/60 min exception)."
+    },
+    {
+      "ts": "2026-10-05T12:09:40.176Z",
+      "event": "start",
+      "detail": "cardio"
+    },
+    {
+      "ts": "2026-10-05T12:10:43.620Z",
+      "event": "artifact-written",
+      "detail": "artifacts/04-cardio-plan.md by cardio-planner (sha256 039687cc176d)"
+    },
+    {
+      "ts": "2026-10-05T12:11:06.628Z",
+      "event": "gate-pass",
+      "detail": "cardio"
+    },
+    {
+      "ts": "2026-10-05T12:11:07.586Z",
+      "event": "start",
+      "detail": "program"
+    },
+    {
+      "ts": "2026-10-05T12:14:07.685Z",
+      "event": "artifact-written",
+      "detail": "artifacts/05-training-program.md by program-designer (sha256 0d75697db33a)"
+    },
+    {
+      "ts": "2026-10-05T12:14:37.885Z",
+      "event": "gate-pass",
+      "detail": "program"
+    },
+    {
+      "ts": "2026-10-05T12:14:38.807Z",
+      "event": "start",
+      "detail": "nutrition,progress"
+    },
+    {
+      "ts": "2026-10-05T12:15:20.912Z",
+      "event": "artifact-written",
+      "detail": "artifacts/06-nutrition-recovery.md by nutrition-planner (sha256 0b5a4877ef49)"
+    },
+    {
+      "ts": "2026-10-05T12:15:36.004Z",
+      "event": "artifact-written",
+      "detail": "artifacts/07-progress-assessment.md by progress-planner (sha256 b513d75b4ef2)"
+    },
+    {
+      "ts": "2026-10-05T12:15:58.216Z",
+      "event": "gate-pass",
+      "detail": "nutrition"
+    },
+    {
+      "ts": "2026-10-05T12:15:58.709Z",
+      "event": "gate-pass",
+      "detail": "progress"
+    },
+    {
+      "ts": "2026-10-05T12:15:59.642Z",
+      "event": "validation-round",
+      "detail": "2"
+    },
+    {
+      "ts": "2026-10-05T12:16:00.126Z",
+      "event": "start",
+      "detail": "validation"
+    },
+    {
+      "ts": "2026-10-05T12:18:45.552Z",
+      "event": "artifact-written",
+      "detail": "artifacts/validation-report.md by validator (sha256 d122c4d6daa0)"
+    },
+    {
+      "ts": "2026-10-05T12:19:08.489Z",
+      "event": "gate-pass",
+      "detail": "validation"
+    },
+    {
+      "ts": "2026-10-05T12:19:09.417Z",
+      "event": "start",
+      "detail": "draft"
+    },
+    {
+      "ts": "2026-10-05T12:21:49.085Z",
+      "event": "artifact-written",
+      "detail": "artifacts/program-draft.md by synthesizer (sha256 7d8679542dd5)"
+    },
+    {
+      "ts": "2026-10-05T12:22:04.686Z",
+      "event": "gate-pass",
+      "detail": "draft"
+    },
+    {
+      "ts": "2026-10-05T12:22:05.361Z",
+      "event": "approval-requested",
+      "detail": "7d8679542dd5"
+    },
+    {
+      "ts": "2026-10-05T12:25:32.443Z",
+      "event": "approval-rejected",
+      "detail": "round 1"
+    },
+    {
+      "ts": "2026-10-05T12:26:04.072Z",
+      "event": "invalidate",
+      "detail": "cardio,program,nutrition,validation,draft,approval,final,progress human feedback round 1"
+    },
+    {
+      "ts": "2026-10-05T12:26:05.045Z",
+      "event": "start",
+      "detail": "cardio"
+    },
+    {
+      "ts": "2026-10-05T12:27:32.996Z",
+      "event": "artifact-written",
+      "detail": "artifacts/04-cardio-plan.md by cardio-planner (sha256 f48a07727772)"
+    },
+    {
+      "ts": "2026-10-05T12:27:54.483Z",
+      "event": "gate-pass",
+      "detail": "cardio"
+    },
+    {
+      "ts": "2026-10-05T12:27:55.502Z",
+      "event": "start",
+      "detail": "program"
+    },
+    {
+      "ts": "2026-10-05T12:32:01.733Z",
+      "event": "artifact-written",
+      "detail": "artifacts/05-training-program.md by program-designer (sha256 02e661d48815)"
+    },
+    {
+      "ts": "2026-10-05T12:32:31.663Z",
+      "event": "gate-pass",
+      "detail": "program"
+    },
+    {
+      "ts": "2026-10-05T12:32:32.621Z",
+      "event": "start",
+      "detail": "nutrition,progress"
+    },
+    {
+      "ts": "2026-10-05T12:33:16.293Z",
+      "event": "artifact-written",
+      "detail": "artifacts/06-nutrition-recovery.md by nutrition-planner (sha256 34b24cef04fc)"
+    },
+    {
+      "ts": "2026-10-05T12:33:47.786Z",
+      "event": "artifact-written",
+      "detail": "artifacts/07-progress-assessment.md by progress-planner (sha256 a824168d2796)"
+    },
+    {
+      "ts": "2026-10-05T12:34:14.148Z",
+      "event": "gate-pass",
+      "detail": "nutrition"
+    },
+    {
+      "ts": "2026-10-05T12:34:14.622Z",
+      "event": "gate-pass",
+      "detail": "progress"
+    },
+    {
+      "ts": "2026-10-05T12:34:15.651Z",
+      "event": "validation-round",
+      "detail": "3"
+    },
+    {
+      "ts": "2026-10-05T12:34:16.122Z",
+      "event": "start",
+      "detail": "validation"
+    },
+    {
+      "ts": "2026-10-05T12:40:02.761Z",
+      "event": "artifact-written",
+      "detail": "artifacts/validation-report.md by validator (sha256 51067e01a431)"
+    },
+    {
+      "ts": "2026-10-05T12:40:37.197Z",
+      "event": "gate-pass",
+      "detail": "validation"
+    },
+    {
+      "ts": "2026-10-05T12:40:37.683Z",
+      "event": "gate-fail",
+      "detail": "program (attempt 1): G2: Mon/Wed sessions planned at exactly 45.0 min assume ~45 s per work set, but reps × tempo run longer (box squat 12 reps with 3-s lowering ≈ 48-54 s; one-arm row 12/arm with 2-3 s lowering ≈ up to 48 s per arm; weeks 8-9 'reps up to 15 then 3-s tempo' ≈ 60 s), so real sessions are ≈ 45.3-47 min. Recompute every set from reps × tempo at the top of each rep range and bring every Mon/Wed session to ≤ 44 min (e.g. cut rest after the four main lifts from 60 s to 45 s, or use a weeks 8-9 progression that does not lengthen sets). Keep exercises 2642 and 1551, the 6:6 push:pull balance and the cardio blocks unchanged. Make the weekly volume range a single consistent value (text says 4-8 sets, table says 4-9)."
+    },
+    {
+      "ts": "2026-10-05T12:40:38.668Z",
+      "event": "start",
+      "detail": "program"
+    },
+    {
+      "ts": "2026-10-05T12:44:11.961Z",
+      "event": "artifact-written",
+      "detail": "artifacts/05-training-program.md by program-designer (sha256 d4e5bd157f98)"
+    },
+    {
+      "ts": "2026-10-05T12:44:42.958Z",
+      "event": "gate-pass",
+      "detail": "program"
+    },
+    {
+      "ts": "2026-10-05T12:44:44.073Z",
+      "event": "start",
+      "detail": "nutrition,progress"
+    },
+    {
+      "ts": "2026-10-05T12:45:24.789Z",
+      "event": "artifact-written",
+      "detail": "artifacts/06-nutrition-recovery.md by nutrition-planner (sha256 84b1c20b9069)"
+    },
+    {
+      "ts": "2026-10-05T12:46:05.009Z",
+      "event": "artifact-written",
+      "detail": "artifacts/07-progress-assessment.md by progress-planner (sha256 68b877376152)"
+    },
+    {
+      "ts": "2026-10-05T12:46:23.093Z",
+      "event": "gate-pass",
+      "detail": "nutrition"
+    },
+    {
+      "ts": "2026-10-05T12:46:23.738Z",
+      "event": "gate-pass",
+      "detail": "progress"
+    },
+    {
+      "ts": "2026-10-05T12:46:24.987Z",
+      "event": "validation-round",
+      "detail": "4"
+    },
+    {
+      "ts": "2026-10-05T12:46:25.507Z",
+      "event": "start",
+      "detail": "validation"
+    },
+    {
+      "ts": "2026-10-05T12:50:22.157Z",
+      "event": "artifact-written",
+      "detail": "artifacts/validation-report.md by validator (sha256 7c8dfaac6d6f)"
+    },
+    {
+      "ts": "2026-10-05T12:50:48.477Z",
+      "event": "gate-pass",
+      "detail": "validation"
+    },
+    {
+      "ts": "2026-10-05T12:50:49.669Z",
+      "event": "start",
+      "detail": "draft"
+    },
+    {
+      "ts": "2026-10-05T12:53:23.857Z",
+      "event": "artifact-written",
+      "detail": "artifacts/program-draft.md by synthesizer (sha256 2c7438954bb7)"
+    },
+    {
+      "ts": "2026-10-05T12:53:48.373Z",
+      "event": "gate-pass",
+      "detail": "draft"
+    },
+    {
+      "ts": "2026-10-05T12:53:48.866Z",
+      "event": "approval-requested",
+      "detail": "2c7438954bb7"
+    },
+    {
+      "ts": "2026-10-06T07:41:47.552Z",
+      "event": "approval-approved",
+      "detail": "round 2"
+    },
+    {
+      "ts": "2026-10-06T07:43:35.387Z",
+      "event": "output-written",
+      "detail": "output/fitness-program.md by html-builder"
+    },
+    {
+      "ts": "2026-10-06T07:45:49.518Z",
+      "event": "output-written",
+      "detail": "output/fitness-program.html by html-builder"
+    },
+    {
+      "ts": "2026-10-06T07:45:49.521Z",
+      "event": "completed",
+      "detail": "final HTML and Markdown delivered"
+    }
+  ]
+}

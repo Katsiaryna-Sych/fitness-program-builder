@@ -45,6 +45,8 @@ try {
   state("pass", RUN, "requirements");
   state("pass", RUN, "exercises", "safety", "cardio");
   state("start", RUN, "program"); state("pass", RUN, "program");
+  state("start", RUN, "progress"); state("start", RUN, "progress"); // second start = restart after interruption
+  expect("interrupted attempt is not counted twice", readState().steps.progress.attempts === 1);
   for (let i = 0; i < 3; i++) { state("start", RUN, "exercises"); state("fail", RUN, "exercises", `G3 attempt ${i + 1}`); }
   const s = readState();
   expect("retry limit blocks step after 3 attempts", s.steps.exercises.status === "blocked" && s.status === "blocked");
