@@ -66,7 +66,9 @@ After **every** group each new artifact passes the `artifact-validator` structur
 6. **Targeted retries.** Only failed steps and their stale dependents are re-run, with the findings as revision
    instructions. Max **3 attempts per step**; then the step is `blocked`, dependent work stops and the coordinator
    reports the unresolved gate. Restarting a step interrupted while `running` continues the same attempt (interruptions
-   do not consume the retry budget); a human rejection (`invalidate`) starts a fresh budget.
+   do not consume the retry budget); a human rejection (`invalidate`) starts a fresh budget. A failure the validator
+   classifies as **requirement-bound** (cannot pass unless the user changes confirmed requirements) is not retried:
+   `state.mjs block` marks the owning step `blocked` at once and the run stops with a report of what to change.
 7. **State.** Never edit `workflow-state.json` by hand — use `state.mjs`; the PostToolUse hook records each written
    artifact with its SHA-256. On resume, `done`/`skipped` steps are never repeated; `written` steps only get their gate.
 8. **Approval is deterministic.** The coordinator shows the draft with its hash and ends its turn. Only the human's typed

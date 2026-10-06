@@ -11,7 +11,8 @@
 //   start <run-id> <step...>                 mark steps running (an attempt is counted)
 //   pass <run-id> <step...>                  gate passed -> done
 //   fail <run-id> <step> "<finding>"         gate failed -> failed (+ dependents become stale)
-//   invalidate <run-id> <step>               step and all dependents -> stale (e.g. after rejection feedback)
+//   block <run-id> <step> "<reason>"         requirement-bound failure -> blocked now (no retries), run stops
+//   invalidate <run-id> <step>              step and all dependents -> stale (e.g. after rejection feedback)
 //   validation-round <run-id>                increment the validation round counter
 //   set-status <run-id> <status>             overall run status
 //   event <run-id> "<text>"                  append a history event
@@ -48,7 +49,7 @@ function summary(state) {
   const blocked = STEPS.filter((s) => state.steps[s.id].status === "blocked").map((s) => s.id);
   lines.push("", `next runnable: ${JSON.stringify(nextGroup(state))}`);
   lines.push(`awaiting gate: ${JSON.stringify(awaitingGate(state))}`);
-  if (blocked.length) lines.push(`BLOCKED (retry limit reached): ${JSON.stringify(blocked)}`);
+  if (blocked.length) lines.push(`BLOCKED (retry limit or requirement-bound — see step notes): ${JSON.stringify(blocked)}`);
   return lines.join("\n");
 }
 
@@ -151,6 +152,24 @@ switch (cmd) {
     for (const d of stale) state.steps[d].status = "stale";
     saveState(state);
     console.log(`${stepId} -> ${st.status}; stale dependents: ${JSON.stringify(stale)}`);
+    break;
+  }
+  case "block": {
+    // Requirement-bound failure: no retry can fix it without changing confirmed requirements, so stop now
+    // instead of burning the retry budget. Same end state as reaching the retry limit.
+    const state = loadState(runId);
+    const [stepId, ...reason] = rest;
+    checkSteps([stepId]);
+    const st = state.steps[stepId];
+    const note = reason.join(" ");
+    st.notes.push({ ts: now(), attempt: st.attempts, finding: `REQUIREMENT-BOUND: ${note}` });
+    st.status = "blocked";
+    state.status = "blocked";
+    const stale = dependentsOf(state, stepId).filter((d) => !["skipped", "pending"].includes(state.steps[d].status));
+    for (const d of stale) state.steps[d].status = "stale";
+    addEvent(state, "blocked", `${stepId}: requirement-bound — ${note}`);
+    saveState(state);
+    console.log(`${stepId} -> blocked (requirement-bound); stale dependents: ${JSON.stringify(stale)}`);
     break;
   }
   case "invalidate": {

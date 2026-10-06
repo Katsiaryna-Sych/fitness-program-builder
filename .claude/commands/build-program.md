@@ -74,10 +74,14 @@ Repeat until `next` contains `validation`, `draft`, `approval` or `final`, or th
 1. `$S validation-round <run-id>`; `$S start <run-id> validation`; launch **validator** with run-id, attempt, round.
 2. `$CHECK <run-id> validation` must pass.
 3. Verdict PASS → `$S pass <run-id> validation`, continue to 5.
-4. Verdict FAIL → for each step in the Retry Plan: `$S fail <run-id> <step> "<gate>: <fix instruction>"`. Only those
+4. Verdict FAIL with any finding classified **requirement-bound** (cannot pass without changing confirmed
+   requirements, e.g. goal impossible within the confirmed time budget) → do not retry it:
+   `$S pass <run-id> validation` is NOT called; run `$S block <run-id> <owner-step> "<gate>: <why>"` and go to **B. Blocked**.
+   Fixable findings in the same report are listed in the blocked report but not re-run.
+5. Verdict FAIL (all findings fixable) → for each step in the Retry Plan: `$S fail <run-id> <step> "<gate>: <fix instruction>"`. Only those
    steps and their dependents are re-run (go back to **3**); steps that passed are untouched. Tell the user in one line
    which gates failed and what is re-run.
-5. After the 4th validation round still FAIL, or any step `blocked` → **B. Blocked**.
+6. After the 4th validation round still FAIL, or any step `blocked` → **B. Blocked**.
 
 ## 5. Synthesis
 `$S start <run-id> draft`; launch **synthesizer** (revision instructions = latest human feedback, if any);
@@ -113,6 +117,7 @@ rounds. If html-builder was blocked by the approval guard, explain why and retur
 4. If `approval` is next: if approval.json is `approved` and its hash equals the current draft hash → **7**, else **6**.
 
 ## B. Blocked
-Stop all dependent work. `$S set-status <run-id> blocked`. Report: which step, which gate, every attempt's findings
+Stop all dependent work. The blocked step must already be recorded by `$S fail` (limit reached) or `$S block`
+(requirement-bound) — never use `set-status blocked` alone. Report: which step, which gate, every attempt's findings
 (from `$S status` / the validation report), and what the user could change (e.g. relax a constraint). Offer
 `/build-program resume <run-id>` after they change something.

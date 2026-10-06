@@ -39,9 +39,12 @@ their gates are `N/A`).
 
 3. Assign each failure to the **most upstream** step that must change. Example: a session too long because the
    cardio plan prescribes 40 min on a 45-min day → owner `cardio`, downstream `program`, `progress`, `nutrition`.
-4. Retry Plan: steps to re-run with exact fix instructions; downstream steps to regenerate
+4. Classify every finding as **fixable** (an agent can correct it within the confirmed requirements) or
+   **requirement-bound** (no artifact can pass while the confirmed requirements stay as they are — e.g. the goal is
+   physiologically impossible within the confirmed weeks × days × minutes). Write the class in each Findings item.
+5. Retry Plan: steps to re-run with exact fix instructions; downstream steps to regenerate
    (use the DAG in the workflow-state skill).
-5. Verdict: `PASS` only if no gate is FAIL.
+6. Verdict: `PASS` only if no gate is FAIL.
 
 ## Return (final message, nothing else)
 ```
@@ -52,4 +55,5 @@ status: complete
 verdict: PASS | FAIL
 failed_gates: none | G2:program, G10:safety, …
 rerun: none | <step>: <one-line fix> ; <step>: <one-line fix>
+requirement_bound: none | <gate>:<step>: <why it cannot pass under the confirmed requirements>
 ```

@@ -1,0 +1,405 @@
+{
+  "schemaVersion": 1,
+  "runId": "20261006-beginner-marathon-4-weeks",
+  "request": "I'm a complete beginner. I want to run a marathon in 4 weeks, training 2 days a week, 20 minutes max per session. No equipment.",
+  "status": "blocked",
+  "maxRetries": 3,
+  "requirementsConfirmed": true,
+  "plan": {
+    "selected": [
+      "requirements",
+      "exercises",
+      "cardio",
+      "program",
+      "progress",
+      "validation",
+      "draft",
+      "approval",
+      "final"
+    ],
+    "skipped": {
+      "safety": "needs_safety=no needs_cardio=yes needs_nutrition=no",
+      "nutrition": "needs_safety=no needs_cardio=yes needs_nutrition=no"
+    }
+  },
+  "validationRounds": 1,
+  "approval": {
+    "status": "none",
+    "draftSha256": null,
+    "rounds": 0
+  },
+  "steps": {
+    "requirements": {
+      "agent": "intake-analyst",
+      "artifact": "artifacts/01-requirements.md",
+      "dependsOn": [],
+      "conditional": false,
+      "status": "done",
+      "attempts": 1,
+      "sha256": "83a5ec825a95decf649cb57be223ef924442469295590e59fc09b20d530b91e4",
+      "updatedAt": "2026-10-06T08:11:53.808Z",
+      "notes": [],
+      "writtenBy": "intake-analyst"
+    },
+    "exercises": {
+      "agent": "exercise-researcher",
+      "artifact": "artifacts/02-exercise-library.md",
+      "dependsOn": [
+        "requirements"
+      ],
+      "conditional": false,
+      "status": "done",
+      "attempts": 2,
+      "sha256": "af2a499e525bbb5bf2af5571625cf532055865acc2dca4cfab243269b3726859",
+      "updatedAt": "2026-10-06T08:14:16.612Z",
+      "notes": [
+        {
+          "ts": "2026-10-06T08:13:37.870Z",
+          "attempt": 1,
+          "finding": "G3 (semantic review): the library uses wger equipment 'Gym mat' (id 4) for Hollow Hold (297), but the client has no equipment. Remove the Gym mat from the equipment mapping and replace Hollow Hold with a bodyweight-only (wger id 7) core exercise that can be done on any floor or ground; update the summary counts."
+        }
+      ],
+      "writtenBy": "exercise-researcher"
+    },
+    "safety": {
+      "agent": "safety-analyst",
+      "artifact": "artifacts/03-safety-guidelines.md",
+      "dependsOn": [
+        "requirements"
+      ],
+      "conditional": true,
+      "status": "skipped",
+      "attempts": 0,
+      "sha256": null,
+      "updatedAt": null,
+      "notes": []
+    },
+    "cardio": {
+      "agent": "cardio-planner",
+      "artifact": "artifacts/04-cardio-plan.md",
+      "dependsOn": [
+        "requirements"
+      ],
+      "conditional": true,
+      "status": "blocked",
+      "attempts": 2,
+      "sha256": "917829d2b5cbd34528eae022136c87212d12986e62f64c372bc4c39c77e52882",
+      "updatedAt": "2026-10-06T08:18:57.468Z",
+      "notes": [
+        {
+          "ts": "2026-10-06T08:18:07.513Z",
+          "attempt": 1,
+          "finding": "G2 consistency (found by program-designer): weeks 3 and 4 interval patterns (4 x 2 min jog / 1 min walk, 4 x 2.5 min jog / 1 min walk) sum to 16 and 19 min, but the plan states block totals of 14 and 15 min. Make every week's interval pattern add up exactly to its stated block total, keep each session (cardio + strength block) <= 20 min, and keep jog time rising week to week within the stated progression limit. Show the arithmetic per week."
+        },
+        {
+          "ts": "2026-10-06T08:29:30.125Z",
+          "attempt": 2,
+          "finding": "REQUIREMENT-BOUND: G7 goal alignment: a 42.2 km marathon in 4 weeks at 2 x 20 min/week is unreachable for a complete beginner (validation round 1); user kept goal/weeks/days/minutes fixed. Fixable G5 (no upper-body work, owner program) not re-run while G7 stands."
+        }
+      ],
+      "writtenBy": "cardio-planner"
+    },
+    "program": {
+      "agent": "program-designer",
+      "artifact": "artifacts/05-training-program.md",
+      "dependsOn": [
+        "exercises",
+        "safety",
+        "cardio"
+      ],
+      "conditional": false,
+      "status": "stale",
+      "attempts": 2,
+      "sha256": "3c115f35ac4a171920c9dc88991467a2a40c81f13647aa158e05a310092437db",
+      "updatedAt": "2026-10-06T08:22:00.085Z",
+      "notes": [],
+      "writtenBy": "program-designer"
+    },
+    "nutrition": {
+      "agent": "nutrition-planner",
+      "artifact": "artifacts/06-nutrition-recovery.md",
+      "dependsOn": [
+        "requirements",
+        "program"
+      ],
+      "conditional": true,
+      "status": "skipped",
+      "attempts": 0,
+      "sha256": null,
+      "updatedAt": null,
+      "notes": []
+    },
+    "progress": {
+      "agent": "progress-planner",
+      "artifact": "artifacts/07-progress-assessment.md",
+      "dependsOn": [
+        "program",
+        "safety"
+      ],
+      "conditional": false,
+      "status": "stale",
+      "attempts": 1,
+      "sha256": "80455ba5deaa94757d554f572046bd97af48e3cb47ee5a91cd1284c558349d87",
+      "updatedAt": "2026-10-06T08:23:54.466Z",
+      "notes": [],
+      "writtenBy": "progress-planner"
+    },
+    "validation": {
+      "agent": "validator",
+      "artifact": "artifacts/validation-report.md",
+      "dependsOn": [
+        "exercises",
+        "safety",
+        "cardio",
+        "program",
+        "nutrition",
+        "progress"
+      ],
+      "conditional": false,
+      "status": "stale",
+      "attempts": 1,
+      "sha256": "db9cec4427f89f055dae6206179541a82af55d7703bd5960f2bbcfe7ca45a62e",
+      "updatedAt": "2026-10-06T08:25:55.916Z",
+      "notes": [],
+      "writtenBy": "validator"
+    },
+    "draft": {
+      "agent": "synthesizer",
+      "artifact": "artifacts/program-draft.md",
+      "dependsOn": [
+        "validation"
+      ],
+      "conditional": false,
+      "status": "pending",
+      "attempts": 0,
+      "sha256": null,
+      "updatedAt": null,
+      "notes": []
+    },
+    "approval": {
+      "agent": "human",
+      "artifact": "approval.json",
+      "dependsOn": [
+        "draft"
+      ],
+      "conditional": false,
+      "status": "pending",
+      "attempts": 0,
+      "sha256": null,
+      "updatedAt": null,
+      "notes": []
+    },
+    "final": {
+      "agent": "html-builder",
+      "artifact": "output/fitness-program.html",
+      "dependsOn": [
+        "approval"
+      ],
+      "conditional": false,
+      "status": "pending",
+      "attempts": 0,
+      "sha256": null,
+      "updatedAt": null,
+      "notes": []
+    }
+  },
+  "createdAt": "2026-10-06T08:04:35.470Z",
+  "updatedAt": "2026-10-06T08:29:30.126Z",
+  "history": [
+    {
+      "ts": "2026-10-06T08:04:35.471Z",
+      "event": "init",
+      "detail": "run created"
+    },
+    {
+      "ts": "2026-10-06T08:04:40.723Z",
+      "event": "file-written",
+      "detail": "input/hook-check.md by coordinator"
+    },
+    {
+      "ts": "2026-10-06T08:04:46.693Z",
+      "event": "start",
+      "detail": "requirements"
+    },
+    {
+      "ts": "2026-10-06T08:05:06.194Z",
+      "event": "artifact-written",
+      "detail": "artifacts/01-requirements.md by intake-analyst (sha256 47e78524f37e)"
+    },
+    {
+      "ts": "2026-10-06T08:09:48.493Z",
+      "event": "file-written",
+      "detail": "input/clarifications.md by coordinator"
+    },
+    {
+      "ts": "2026-10-06T08:10:04.592Z",
+      "event": "artifact-written",
+      "detail": "artifacts/01-requirements.md by intake-analyst (sha256 83a5ec825a95)"
+    },
+    {
+      "ts": "2026-10-06T08:11:53.809Z",
+      "event": "gate-pass",
+      "detail": "requirements"
+    },
+    {
+      "ts": "2026-10-06T08:11:54.318Z",
+      "event": "requirements-confirmed",
+      "detail": "user confirmed requirements"
+    },
+    {
+      "ts": "2026-10-06T08:11:54.847Z",
+      "event": "plan",
+      "detail": "selected=requirements,exercises,cardio,program,progress,validation,draft,approval,final skipped=safety,nutrition needs_safety=no needs_cardio=yes needs_nutrition=no"
+    },
+    {
+      "ts": "2026-10-06T08:12:03.318Z",
+      "event": "file-written",
+      "detail": "execution-plan.md by coordinator"
+    },
+    {
+      "ts": "2026-10-06T08:12:06.328Z",
+      "event": "start",
+      "detail": "exercises,cardio"
+    },
+    {
+      "ts": "2026-10-06T08:12:49.051Z",
+      "event": "artifact-written",
+      "detail": "artifacts/02-exercise-library.md by exercise-researcher (sha256 b2d2fc59e19f)"
+    },
+    {
+      "ts": "2026-10-06T08:13:01.652Z",
+      "event": "artifact-written",
+      "detail": "artifacts/04-cardio-plan.md by cardio-planner (sha256 e107bf08b870)"
+    },
+    {
+      "ts": "2026-10-06T08:13:06.667Z",
+      "event": "artifact-written",
+      "detail": "artifacts/02-exercise-library.md by exercise-researcher (sha256 145bede754e9)"
+    },
+    {
+      "ts": "2026-10-06T08:13:16.459Z",
+      "event": "artifact-written",
+      "detail": "artifacts/04-cardio-plan.md by cardio-planner (sha256 a25e8faabe42)"
+    },
+    {
+      "ts": "2026-10-06T08:13:37.374Z",
+      "event": "gate-pass",
+      "detail": "cardio"
+    },
+    {
+      "ts": "2026-10-06T08:13:37.871Z",
+      "event": "gate-fail",
+      "detail": "exercises (attempt 1): G3 (semantic review): the library uses wger equipment 'Gym mat' (id 4) for Hollow Hold (297), but the client has no equipment. Remove the Gym mat from the equipment mapping and replace Hollow Hold with a bodyweight-only (wger id 7) core exercise that can be done on any floor or ground; update the summary counts."
+    },
+    {
+      "ts": "2026-10-06T08:13:38.895Z",
+      "event": "start",
+      "detail": "exercises"
+    },
+    {
+      "ts": "2026-10-06T08:14:05.980Z",
+      "event": "artifact-written",
+      "detail": "artifacts/02-exercise-library.md by exercise-researcher (sha256 af2a499e525b)"
+    },
+    {
+      "ts": "2026-10-06T08:14:16.613Z",
+      "event": "gate-pass",
+      "detail": "exercises"
+    },
+    {
+      "ts": "2026-10-06T08:14:17.617Z",
+      "event": "start",
+      "detail": "program"
+    },
+    {
+      "ts": "2026-10-06T08:16:44.096Z",
+      "event": "artifact-written",
+      "detail": "artifacts/05-training-program.md by program-designer (sha256 7949f26d73f7)"
+    },
+    {
+      "ts": "2026-10-06T08:17:46.231Z",
+      "event": "artifact-written",
+      "detail": "artifacts/05-training-program.md by program-designer (sha256 d84656e8b24e)"
+    },
+    {
+      "ts": "2026-10-06T08:18:07.514Z",
+      "event": "gate-fail",
+      "detail": "cardio (attempt 1): G2 consistency (found by program-designer): weeks 3 and 4 interval patterns (4 x 2 min jog / 1 min walk, 4 x 2.5 min jog / 1 min walk) sum to 16 and 19 min, but the plan states block totals of 14 and 15 min. Make every week's interval pattern add up exactly to its stated block total, keep each session (cardio + strength block) <= 20 min, and keep jog time rising week to week within the stated progression limit. Show the arithmetic per week."
+    },
+    {
+      "ts": "2026-10-06T08:18:08.705Z",
+      "event": "start",
+      "detail": "cardio"
+    },
+    {
+      "ts": "2026-10-06T08:18:41.696Z",
+      "event": "artifact-written",
+      "detail": "artifacts/04-cardio-plan.md by cardio-planner (sha256 917829d2b5cb)"
+    },
+    {
+      "ts": "2026-10-06T08:18:57.470Z",
+      "event": "gate-pass",
+      "detail": "cardio"
+    },
+    {
+      "ts": "2026-10-06T08:18:58.499Z",
+      "event": "start",
+      "detail": "program"
+    },
+    {
+      "ts": "2026-10-06T08:21:41.872Z",
+      "event": "artifact-written",
+      "detail": "artifacts/05-training-program.md by program-designer (sha256 3c115f35ac4a)"
+    },
+    {
+      "ts": "2026-10-06T08:22:00.086Z",
+      "event": "gate-pass",
+      "detail": "program"
+    },
+    {
+      "ts": "2026-10-06T08:22:01.133Z",
+      "event": "start",
+      "detail": "progress"
+    },
+    {
+      "ts": "2026-10-06T08:23:41.031Z",
+      "event": "artifact-written",
+      "detail": "artifacts/07-progress-assessment.md by progress-planner (sha256 80455ba5deaa)"
+    },
+    {
+      "ts": "2026-10-06T08:23:54.468Z",
+      "event": "gate-pass",
+      "detail": "progress"
+    },
+    {
+      "ts": "2026-10-06T08:23:55.472Z",
+      "event": "validation-round",
+      "detail": "1"
+    },
+    {
+      "ts": "2026-10-06T08:23:55.978Z",
+      "event": "start",
+      "detail": "validation"
+    },
+    {
+      "ts": "2026-10-06T08:25:55.917Z",
+      "event": "artifact-written",
+      "detail": "artifacts/validation-report.md by validator (sha256 db9cec4427f8)"
+    },
+    {
+      "ts": "2026-10-06T08:26:18.277Z",
+      "event": "status",
+      "detail": "blocked"
+    },
+    {
+      "ts": "2026-10-06T08:29:29.600Z",
+      "event": "note",
+      "detail": "state repair: run was stopped with set-status only; recording the requirement-bound G7 block on its owning step with the new 'block' command"
+    },
+    {
+      "ts": "2026-10-06T08:29:30.126Z",
+      "event": "blocked",
+      "detail": "cardio: requirement-bound — G7 goal alignment: a 42.2 km marathon in 4 weeks at 2 x 20 min/week is unreachable for a complete beginner (validation round 1); user kept goal/weeks/days/minutes fixed. Fixable G5 (no upper-body work, owner program) not re-run while G7 stands."
+    }
+  ]
+}

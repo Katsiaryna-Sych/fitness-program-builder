@@ -51,6 +51,8 @@ try {
   const s = readState();
   expect("retry limit blocks step after 3 attempts", s.steps.exercises.status === "blocked" && s.status === "blocked");
   expect("failure marks downstream stale", s.steps.program.status === "stale");
+  state("block", RUN, "progress", "G7: goal impossible under confirmed requirements");
+  expect("block marks step blocked without retries", readState().steps.progress.status === "blocked" && readState().steps.progress.attempts === 1);
   state("invalidate", RUN, "exercises", "human feedback");
   expect("invalidate resets retry budget", readState().steps.exercises.attempts === 0);
 
