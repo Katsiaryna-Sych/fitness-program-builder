@@ -51,6 +51,9 @@ After **every** group each new artifact passes the `artifact-validator` structur
 
 ## Execution rules (the coordinator must follow these)
 
+0. **Hooks must be live.** Every new run and every resume starts with a preflight: the coordinator writes
+   `input/hook-check.md` and `state.mjs hooks-check` verifies the PostToolUse hook logged it. If not (session not started
+   in the repo root), the workflow stops — approval could not be verified without hooks.
 1. **Requirements first.** Missing required facts are asked with AskUserQuestion and captured in
    `input/clarifications.md`; the user explicitly confirms the summary before planning (`state.mjs confirm-requirements`).
 2. **Adaptive plan.** Conditional agents are selected from the Workflow Flags of `01-requirements.md` and recorded with
@@ -62,13 +65,15 @@ After **every** group each new artifact passes the `artifact-validator` structur
    run by the validator. Gate failures call `state.mjs fail`, which marks downstream steps `stale`.
 6. **Targeted retries.** Only failed steps and their stale dependents are re-run, with the findings as revision
    instructions. Max **3 attempts per step**; then the step is `blocked`, dependent work stops and the coordinator
-   reports the unresolved gate.
+   reports the unresolved gate. Restarting a step interrupted while `running` continues the same attempt (interruptions
+   do not consume the retry budget); a human rejection (`invalidate`) starts a fresh budget.
 7. **State.** Never edit `workflow-state.json` by hand — use `state.mjs`; the PostToolUse hook records each written
    artifact with its SHA-256. On resume, `done`/`skipped` steps are never repeated; `written` steps only get their gate.
 8. **Approval is deterministic.** The coordinator shows the draft with its hash and ends its turn. Only the human's typed
    `APPROVE <run-id> <hash8>` / `REJECT <run-id>: <feedback>` is recorded — by the UserPromptSubmit hook. The PreToolUse
    guard allows output only for `html-builder` and only if `approval.json` is `approved` **and** its hash equals the
-   current draft's SHA-256. A rejection is mapped to the most upstream owning step, invalidated and regenerated.
+   current draft's SHA-256. `state.mjs draft-hash` never downgrades a valid approval; `state.mjs sync-approval`
+   re-derives the state summary from `approval.json` if they ever diverge. A rejection is mapped to the most upstream owning step, invalidated and regenerated.
 9. **No model memory as source.** Exercises come from the wger MCP server; guidelines and numbers from pages fetched
    with WebSearch/WebFetch, cited in each artifact's `## Sources`.
 10. **Clean output.** The final files contain no internal file, step or agent names (no-leak-guard) and the same

@@ -97,6 +97,10 @@ node .claude/skills/workflow-state/scripts/state.mjs status <run-id>
 | [20261002-gym-muscle-gain-intermediate](runs/20261002-gym-muscle-gain-intermediate/) | [samples/02-gym-hypertrophy-nutrition.md](samples/02-gym-hypertrophy-nutrition.md) | safety and cardio skipped, **nutrition selected** | calorie/protein maths from real body data; 3 validation rounds with **targeted retries** of exercises (rack/incline exercises removed), nutrition and progress — progress succeeded on its **last allowed attempt** |
 | [20261005-home-weight-loss-5k](runs/20261005-home-weight-loss-5k/) | [samples/03-knee-pain-fat-loss-5k.md](samples/03-knee-pain-fat-loss-5k.md) | **all agents** | safety ‖ cardio conflict resolved by re-asking the user and re-confirming requirements; **interrupted + app restarted** during program design, resumed without repeating exercises/safety/cardio; **REJECT** with feedback → cardio + program regenerated, 4 validation rounds (G4, G2 fails) → **APPROVE** of the new hash |
 
+Note on run 1: it was started in a session that had not been opened in the repo root, so project hooks were not
+loaded until it was resumed in a correct session (its history therefore has few hook events before approval). This is
+what motivated the hooks preflight (`state.mjs hooks-check`) that now stops any run without live hooks.
+
 Each `runs/<run-id>/` contains `input/` (request + clarifications), `artifacts/`, `execution-plan.md`,
 `workflow-state.json` (with full history), `approval.json` (all approval rounds) and `output/`.
 
